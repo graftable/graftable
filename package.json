@@ -1,0 +1,33 @@
+{
+  "name": "graftable",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/graftable/graftable.git"
+  },
+  "author": "Rich McKinley <mckinley1411@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/graftable/graftable/issues"
+  },
+  "homepage": "https://github.com/graftable/graftable#readme",
+  "dependencies": {
+    "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.4.1",
+    "graphql": "^15.5.0",
+    "graphql-zeus": "^3.0.4",
+    "jwt-simple": "^0.5.6",
+    "postgraphile": "^4.11.0",
+    "postgraphile-plugin-connection-filter": "^2.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}
