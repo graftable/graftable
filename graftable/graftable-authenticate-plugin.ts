@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
 import { gql, makeExtendSchemaPlugin } from 'graphile-utils';
-import { Thunder as GraphqlServerSide } from './graftable-zeus';
 import graphqlOperate from './graftable-operate';
 import { jwtAlgorithm, jwtDataName, jwtMaxAge, jwtSignatureName, jwtSecret } from './graftable-config';
 import jwt from 'jwt-simple';
@@ -84,24 +83,22 @@ const GraphqlAuthenticatePlugin = makeExtendSchemaPlugin(build => ({
         }
 
         const { schema } = resolveInfo;
-        const graphlqlServerSide = GraphqlServerSide(async query => {
-          const { data, errors } = await graphqlOperate(schema, query);
-          if (errors?.length) {
-            throw errors[0];
-          }
-          return data;
-        });
 
-        const { users } = await graphlqlServerSide.query({
-          users: [
-            { condition: { email: email.toLowerCase() } },
-            {
-              id: true,
-              email: true,
-              passwordHash: true
-            }
-          ]
-        });
+        const query = `query {
+          users(condition: { email: ${email.toLowerCase()} }) {
+            id,
+            email,
+            passwordHash
+          }
+        }`;
+
+
+        const { data, errors } = await graphqlOperate(schema, query);
+        if (errors?.length) {
+          throw errors[0];
+        }
+
+        const { users } = data;
 
         console.log(users);
 
