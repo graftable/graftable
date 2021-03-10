@@ -33,16 +33,15 @@ const {
 // LOOK when ecoding and decoding. Never rely on payload algorithm value.
 // LOOK maintain list independent of `jwt-simple` to protect from upstream problems.
 const jwtSupportedAlgorithms = ['HS256', 'HS384', 'HS512', 'RS256'];
-let jwtAlgorithm: TAlgorithm;
 try {
   if (!jwtSupportedAlgorithms.includes(jwtAlgorithmMaybe)) {
     throw new Error(`JWT Algorithm must be one of ${jwtSupportedAlgorithms}`);
   }
-  jwtAlgorithm = jwtAlgorithmMaybe as TAlgorithm;
 } catch {
   throw new Error(`${GRAFTABLE_PREFIX}JWT_ALGORITHM must be one of ${jwtSupportedAlgorithms}.`);
 }
 
+const jwtAlgorithm = jwtAlgorithmMaybe as TAlgorithm;
 const jwtMaxAge = parseInt(jwtMaxAgeString);
 
 const postgraphileOptions: PostGraphileOptions = {
