@@ -1,6 +1,7 @@
-import exportPostGraphileSchema from 'postgraphile/build/postgraphile/schema/exportPostGraphileSchema.js';
-import { databaseSchema, pgPool, postgraphileOptions, graphqlSchema } from './graftable-config';
 import { createPostGraphileSchema } from 'postgraphile';
+import exportPostGraphileSchema from 'postgraphile/build/postgraphile/schema/exportPostGraphileSchema.js';
+import { databaseSchema, graphqlSchema, postgraphileOptions } from './graftable-config';
+import { pgPool } from './graftable-pgpool';
 
 const postgraphileSchemaPromise = createPostGraphileSchema(pgPool, databaseSchema, postgraphileOptions);
 
@@ -9,4 +10,5 @@ const postgraphileSchemaPromise = createPostGraphileSchema(pgPool, databaseSchem
   await exportPostGraphileSchema(schema, { exportGqlSchemaPath: graphqlSchema });
 })();
 
-export {};
+export { };
+

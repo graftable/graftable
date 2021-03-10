@@ -1,6 +1,6 @@
+import { graphql, GraphQLSchema, Source } from 'graphql';
 import { withPostGraphileContext } from 'postgraphile';
 import { pgPool } from './graftable-pgpool';
-import { graphql, GraphQLSchema, Source } from 'graphql';
 
 export default async function graphqlOperate(
   schema: GraphQLSchema,
