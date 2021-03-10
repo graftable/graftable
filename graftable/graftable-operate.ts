@@ -1,5 +1,5 @@
 import { withPostGraphileContext } from 'postgraphile';
-import { pgPool } from './graftable-config';
+import { pgPool } from './graftable-pgpool';
 import { graphql, GraphQLSchema, Source } from 'graphql';
 
 export default async function graphqlOperate(

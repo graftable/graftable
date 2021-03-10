@@ -2,7 +2,6 @@ import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector';
 import { NodePlugin } from 'graphile-build';
 // import GraphqlAccessPlugin from './graphql-access-plugin';
 import { TAlgorithm } from 'jwt-simple';
-import pg from 'pg';
 import { PostGraphileOptions } from 'postgraphile';
 import PostGraphileConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
 import GraphqlAuthenticatePlugin from './graftable-authenticate-plugin';
@@ -16,7 +15,6 @@ const { GRAFTABLE_PREFIX = '' } = process.env;
 
 const {
   [GRAFTABLE_PREFIX + 'DATABASE_SCHEMA']: databaseSchema = 'public',
-  [GRAFTABLE_PREFIX + 'DATABASE_URL']: databaseUrl = 'postgres://localhost/graftable',
   [GRAFTABLE_PREFIX + 'GRAPHQL_URL']: graphqlUrl = 'http://localhost:3000/api/graphql',
   [GRAFTABLE_PREFIX + 'GRAPHQL_SCHEMA']: graphqlSchema = 'schema.graphql',
   [GRAFTABLE_PREFIX + 'GRAPHIQL_ROUTE']: graphiqlRoute = '/api/graphiql',
@@ -46,8 +44,6 @@ try {
 }
 
 const jwtMaxAge = parseInt(jwtMaxAgeString);
-
-const pgPool = new pg.Pool({ connectionString: databaseUrl });
 
 const postgraphileOptions: PostGraphileOptions = {
   async additionalGraphQLContextFromRequest(req, res) {
@@ -81,8 +77,10 @@ const postgraphileOptions: PostGraphileOptions = {
 };
 
 export {
+  GRAFTABLE_PREFIX,
   databaseSchema,
   graphqlSchema,
+  graphqlUrl,
   jwtDataName,
   jwtAlgorithm,
   jwtMaxAge,
@@ -91,6 +89,5 @@ export {
   otpSetupWindow,
   optStep,
   otpWindow,
-  pgPool,
   postgraphileOptions
 };
