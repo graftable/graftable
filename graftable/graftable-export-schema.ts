@@ -9,6 +9,3 @@ const postgraphileSchemaPromise = createPostGraphileSchema(pgPool, databaseSchem
   const schema = await postgraphileSchemaPromise;
   await exportPostGraphileSchema(schema, { exportGqlSchemaPath: graphqlFile });
 })();
-
-export { };
-
