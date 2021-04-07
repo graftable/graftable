@@ -73,6 +73,8 @@ const postgraphileOptions: PostGraphileOptions = {
 };
 
 export {
+  DEFAULT_DATABASE_URL,
+  DEFAULT_DATABASE_SCHEMA,
   GRAFTABLE_PREFIX,
   databaseSchema,
   graphqlFile,
