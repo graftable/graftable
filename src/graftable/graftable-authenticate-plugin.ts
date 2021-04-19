@@ -1,10 +1,16 @@
 import bcrypt from 'bcryptjs';
-import { gql, makeExtendSchemaPlugin } from 'graphile-utils';
-import graphqlServerOperate from './graftable-operate';
-import { jwtAlgorithm, jwtDataName, jwtMaxAge, jwtSignatureName, jwtSecret } from './graftable-config';
-import jwt from 'jwt-simple';
-import { ClientRequest, ServerResponse } from 'http';
 import cookie from 'cookie';
+import { gql, makeExtendSchemaPlugin } from 'graphile-utils';
+import { ClientRequest } from 'http';
+import jwt from 'jwt-simple';
+import { GRAFTABLE_PREFIX, jwtAlgorithm, jwtDataName, jwtMaxAge, jwtSignatureName } from './graftable-config';
+import { graphqlServerOperate } from './graftable-server-operate';
+
+
+// LOOK: Configure JWT_SECRET here outside of graftable-config.
+//       Contains secret not to be imported or used from client-side files.
+const { [GRAFTABLE_PREFIX + 'JWT_SECRET']: jwtSecret } = process.env;
+// TODO check secret
 
 export function encodeAuthenticationJwt(authenticatedUser: any, roles = ['user']) {
   if(!roles.includes('user') && !roles.includes('admin')) {
