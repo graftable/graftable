@@ -1,14 +1,6 @@
 import { Source } from 'graphql';
-import { createPostGraphileSchema } from "postgraphile";
-import { databaseSchema, postgraphileOptions } from "./graftable-config";
+import { postgraphileSchemaPromise } from "./graftable-schema";
 import { graphqlServerOperate } from "./graftable-server-operate";
-import { pgPool } from "./graftable-pgpool";
-
-const postgraphileSchemaPromise = createPostGraphileSchema(
-  pgPool,
-  databaseSchema,
-  postgraphileOptions
-);
 
 async function graphqlServerFetch(source: string | Source) {
   const schema = await postgraphileSchemaPromise;
