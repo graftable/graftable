@@ -26,7 +26,7 @@ async function graphqlServerOperate(
         rootValue,
         {
           ...context
-          /*jwtClaims?*/
+          // TODO jwtClaims?
         }, // You can add more to context if you like
         variableValues,
         operationName
