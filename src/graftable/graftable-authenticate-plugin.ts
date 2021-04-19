@@ -136,7 +136,7 @@ const GraphqlAuthenticatePlugin = makeExtendSchemaPlugin(build => ({
 
         const user = users[0];
 
-        setJwtCookie(user, context);
+        setJwtCookies(user, context);
 
         return {
           id: user.id,
@@ -147,7 +147,7 @@ const GraphqlAuthenticatePlugin = makeExtendSchemaPlugin(build => ({
   }
 }));
 
-function setJwtCookie(user: any, graphqlContext: any) {
+function setJwtCookies(user: any, graphqlContext: any) {
   const authenticationJwt = encodeAuthenticationJwt(user);
   const [jwtHeader, jwtPayload, jwtSignature] = authenticationJwt.split('.');
 
