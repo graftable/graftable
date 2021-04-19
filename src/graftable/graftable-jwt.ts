@@ -1,6 +1,7 @@
+import cookie from 'cookie';
+import { IncomingHttpHeaders, ServerResponse } from 'http';
 import jwt from 'jwt-simple';
 import { GRAFTABLE_PREFIX, jwtDataName, jwtSignatureName } from './graftable-config';
-import { ClientRequest, ServerResponse } from 'http';
 
 // LOOK: Configure JWT_SECRET here outside of graftable-config.
 //       Contains secret key not to be imported or used from client-side files.
@@ -12,9 +13,10 @@ if (!jwtSecretInput || !jwtSecretInput.trim()) {
 const jwtSecret = jwtSecretInput;
 
 function jwtClaimsToReq() {
-  return function jwtClaimsMiddleware(req: ClientRequest, _res: ServerResponse, next: Function) {
-    const jwtData = req.cookies[jwtDataName];
-    const jwtSignature = req.cookies[jwtSignatureName];
+  return function jwtClaimsMiddleware(req: { headers: IncomingHttpHeaders, jwtClaims: any }, _res: ServerResponse, next: Function) {
+    const cookies = cookie.parse(req.headers.cookie)
+    const jwtData = cookies[jwtDataName];
+    const jwtSignature = cookies[jwtSignatureName];
     if (jwtData && jwtSignature) {
       try {
         const claims = jwt.decode(`${jwtData}.${jwtSignature}`, jwtSecret);
