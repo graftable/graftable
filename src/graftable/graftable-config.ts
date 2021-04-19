@@ -13,7 +13,6 @@ const DEFAULT_DATABASE_URL = 'postgres://localhost/graftable';
 const DEFAULT_DATABASE_SCHEMA = 'public';
 
 const {
-  [GRAFTABLE_PREFIX + 'DATABASE_URL']: databaseUrl = DEFAULT_DATABASE_URL,
   [GRAFTABLE_PREFIX + 'DATABASE_SCHEMA']: databaseSchema = DEFAULT_DATABASE_SCHEMA,
   [GRAFTABLE_PREFIX + 'GRAPHQL_URL']: graphqlUrl = 'http://localhost:3000/api/graphql',
   [GRAFTABLE_PREFIX + 'GRAPHQL_FILE']: graphqlFile = 'graftable/schema.graphql',
