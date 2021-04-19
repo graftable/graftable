@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { gql, makeExtendSchemaPlugin } from 'graphile-utils';
-import graphqlOperate from './graftable-operate';
+import graphqlServerOperate from './graftable-operate';
 import { jwtAlgorithm, jwtDataName, jwtMaxAge, jwtSignatureName, jwtSecret } from './graftable-config';
 import jwt from 'jwt-simple';
 import { ClientRequest, ServerResponse } from 'http';
@@ -93,7 +93,7 @@ const GraphqlAuthenticatePlugin = makeExtendSchemaPlugin(build => ({
         }`;
 
 
-        const { data, errors } = await graphqlOperate(schema, query);
+        const { data, errors } = await graphqlServerOperate(schema, query);
         if (errors?.length) {
           throw errors[0];
         }

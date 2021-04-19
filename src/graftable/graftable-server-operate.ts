@@ -2,7 +2,7 @@ import { graphql, GraphQLSchema, Source } from 'graphql';
 import { withPostGraphileContext } from 'postgraphile';
 import { pgPool } from './graftable-pgpool';
 
-async function graphqlOperate(
+async function graphqlServerOperate(
   schema: GraphQLSchema,
   source: string | Source,
   rootValue?: any,
@@ -35,4 +35,4 @@ async function graphqlOperate(
   );
 }
 
-export { graphqlOperate }
+export { graphqlServerOperate }
