@@ -1,6 +1,6 @@
 import { makeWrapResolversPlugin } from 'graphile-utils';
-import { jwtDataName, jwtMaxAge, jwtSignatureName, jwtAlgorithm, GRAFTABLE_PREFIX } from './graftable-config';
-import jwt, { TAlgorithm } from 'jwt-simple';
+import jwt from 'jwt-simple';
+import { GRAFTABLE_PREFIX, jwtAlgorithm } from './graftable-config';
 
 // LOOK: Configure JWT_SECRET here outside of graftable-config.
 //       Contains secret not to be imported or used from client-side files.
@@ -14,6 +14,7 @@ const GraphqlAccessPlugin = makeWrapResolversPlugin(
         return { scope: context.scope };
       }
     }
+    // TODO logged-out query and mutation allow list here
     return null;
   },
   () => async (resolve, source, args, context, info) => {

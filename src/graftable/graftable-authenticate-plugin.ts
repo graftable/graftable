@@ -6,7 +6,6 @@ import jwt from 'jwt-simple';
 import { GRAFTABLE_PREFIX, jwtAlgorithm, jwtDataName, jwtMaxAge, jwtSignatureName } from './graftable-config';
 import { graphqlServerOperate } from './graftable-server-operate';
 
-
 // LOOK: Configure JWT_SECRET here outside of graftable-config.
 //       Contains secret not to be imported or used from client-side files.
 const { [GRAFTABLE_PREFIX + 'JWT_SECRET']: jwtSecret } = process.env;
