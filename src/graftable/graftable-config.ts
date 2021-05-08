@@ -1,6 +1,5 @@
 import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector';
 import { NodePlugin } from 'graphile-build';
-// import GraphqlAccessPlugin from './graphql-access-plugin';
 import { TAlgorithm } from 'jwt-simple';
 import { PostGraphileOptions } from 'postgraphile';
 import PostGraphileConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
@@ -47,8 +46,17 @@ const postgraphileOptions: PostGraphileOptions = {
     };
   },
   appendPlugins: [
+
+    // EXAMPLE ONLY ACCESS:
+    // import GraphqlAccessPlugin from 'graftable/graphql-access-plugin';
     // GraphqlAccessPlugin,
-    // GraphqlAuthenticatePlugin,
+    // END EXAMPLE ONLY ACCESS
+
+    // EXAMPLE ONLY AUTHENTICATION:
+    // import { GraftableAuthenticationMutationExample } from 'graftable/graftable-authentication-mutation-example'
+    // makeExtendSchemaPlugin(graftableAuthenticationMutationExample),
+    // END EXAMPLE ONLY AUTHENTICATION
+  
     PgSimplifyInflectorPlugin,
     PostGraphileConnectionFilterPlugin
   ],

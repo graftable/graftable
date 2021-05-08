@@ -33,7 +33,53 @@ export function encodeAuthenticationJwt(authenticatedUser: any, roles = ['user']
   );
 }
 
-const GraphqlAuthenticatePlugin = makeExtendSchemaPlugin(build => ({
+function setJwtCookies(user: any, graphqlContext: any) {
+  const authenticationJwt = encodeAuthenticationJwt(user);
+  const [jwtHeader, jwtPayload, jwtSignature] = authenticationJwt.split('.');
+
+  const jwtDataCookie = cookie.serialize(jwtDataName, `${jwtHeader}.${jwtPayload}`, {
+    // TODO set domain too?
+    maxAge: jwtMaxAge,
+    path: '/',
+    secure: process.env.NODE_ENV !== 'development'
+  });
+  const jwtSignatureCookie = cookie.serialize(jwtSignatureName, jwtSignature, {
+    // TODO set domain too?
+    httpOnly: true,
+    maxAge: jwtMaxAge,
+    path: '/',
+    secure: process.env.NODE_ENV !== 'development'
+  });
+
+  const { withReqResContext } = graphqlContext;
+  withReqResContext((req: ClientRequest, res: ClientRequest, ctx: any) => {
+    res.setHeader('Set-Cookie', [jwtDataCookie, jwtSignatureCookie]);
+  });
+}
+
+function deleteJwtCookies(graphqlContext: any) {
+  const expires = new Date();
+  const jwtDataCookie = cookie.serialize(jwtDataName, '', {
+    // TODO set domain too?
+    expires,
+    path: '/',
+    secure: process.env.NODE_ENV !== 'development'
+  });
+  const jwtSignatureCookie = cookie.serialize(jwtSignatureName, '', {
+    // TODO set domain too?
+    expires,
+    httpOnly: true,
+    path: '/',
+    secure: process.env.NODE_ENV !== 'development'
+  });
+
+  const { withReqResContext } = graphqlContext;
+  withReqResContext((req: ClientRequest, res: ClientRequest, ctx: any) => {
+    res.setHeader('Set-Cookie', [jwtDataCookie, jwtSignatureCookie]);
+  });
+}
+
+const GraftableAuthenticationPluginExample = makeExtendSchemaPlugin(build => ({
   typeDefs: gql`
     input AuthenticateInput {
       email: String!
@@ -145,51 +191,6 @@ const GraphqlAuthenticatePlugin = makeExtendSchemaPlugin(build => ({
     }
   }
 }));
-
-function setJwtCookies(user: any, graphqlContext: any) {
-  const authenticationJwt = encodeAuthenticationJwt(user);
-  const [jwtHeader, jwtPayload, jwtSignature] = authenticationJwt.split('.');
-
-  const jwtDataCookie = cookie.serialize(jwtDataName, `${jwtHeader}.${jwtPayload}`, {
-    // TODO set domain too?
-    maxAge: jwtMaxAge,
-    path: '/',
-    secure: process.env.NODE_ENV !== 'development'
-  });
-  const jwtSignatureCookie = cookie.serialize(jwtSignatureName, jwtSignature, {
-    // TODO set domain too?
-    httpOnly: true,
-    maxAge: jwtMaxAge,
-    path: '/',
-    secure: process.env.NODE_ENV !== 'development'
-  });
-
-  const { withReqResContext } = graphqlContext;
-  withReqResContext((req: ClientRequest, res: ClientRequest, ctx: any) => {
-    res.setHeader('Set-Cookie', [jwtDataCookie, jwtSignatureCookie]);
-  });
-}
-
-function deleteJwtCookies(graphqlContext: any) {
-  const expires = new Date();
-  const jwtDataCookie = cookie.serialize(jwtDataName, '', {
-    // TODO set domain too?
-    expires,
-    path: '/',
-    secure: process.env.NODE_ENV !== 'development'
-  });
-  const jwtSignatureCookie = cookie.serialize(jwtSignatureName, '', {
-    // TODO set domain too?
-    expires,
-    httpOnly: true,
-    path: '/',
-    secure: process.env.NODE_ENV !== 'development'
-  });
-
-  const { withReqResContext } = graphqlContext;
-  withReqResContext((req: ClientRequest, res: ClientRequest, ctx: any) => {
-    res.setHeader('Set-Cookie', [jwtDataCookie, jwtSignatureCookie]);
-  });
-}
  
-export default GraphqlAuthenticatePlugin;
+export default GraftableAuthenticationPluginExample;
+export { GraftableAuthenticationPluginExample };
