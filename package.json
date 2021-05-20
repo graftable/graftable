@@ -2,9 +2,12 @@
   "name": "graftable",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "private": true,
   "scripts": {
+    "prebuild": "rimraf dist/",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -32,6 +35,7 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie": "^0.4.0",
     "@types/pg": "^7.14.11",
+    "rimraf": "^3.0.2",
     "typescript": "^4.2.4"
   }
 }
