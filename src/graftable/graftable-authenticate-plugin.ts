@@ -79,7 +79,7 @@ function deleteJwtCookies(graphqlContext: any) {
   });
 }
 
-const GraftableAuthenticationPluginExample = makeExtendSchemaPlugin(build => ({
+const GraftableAuthenticationPlugin = makeExtendSchemaPlugin(build => ({
   typeDefs: gql`
     input AuthenticateInput {
       email: String!
@@ -192,5 +192,5 @@ const GraftableAuthenticationPluginExample = makeExtendSchemaPlugin(build => ({
   }
 }));
  
-export default GraftableAuthenticationPluginExample;
-export { GraftableAuthenticationPluginExample };
+export default GraftableAuthenticationPlugin;
+export { GraftableAuthenticationPlugin };
