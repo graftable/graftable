@@ -9,7 +9,10 @@ import { graphqlServerOperate } from './graftable-server-operate';
 // LOOK: Configure JWT_SECRET here outside of graftable-config.
 //       Contains secret not to be imported or used from client-side files.
 const { [GRAFTABLE_PREFIX + 'JWT_SECRET']: jwtSecret } = process.env;
-// TODO check secret
+
+if(!jwtSecret) {
+  throw new Error('Please generate a secret key and set it to the [GRAFTABLE_PREFIX]JWT_SECRET environment variable.')
+}
 
 export function encodeAuthenticationJwt(authenticatedUser: any, roles = ['user']) {
   if(!roles.includes('user') && !roles.includes('admin')) {
@@ -26,7 +29,7 @@ export function encodeAuthenticationJwt(authenticatedUser: any, roles = ['user']
       otp: !!authenticatedUser.oneTimePasswordSecret,
       roles
     },
-    jwtSecret,
+    jwtSecret!,
     // LOOK Avoid JWT no-algorithm-in-payload attacks. Specify the same algorithm
     // LOOK when ecoding and decoding. Always use `jwtAlgorithm` from config.
     jwtAlgorithm,
