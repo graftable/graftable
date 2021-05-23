@@ -14,7 +14,10 @@ const jwtSecret = jwtSecretInput;
 
 function jwtClaimsToReq() {
   return function jwtClaimsMiddleware(req: { headers: IncomingHttpHeaders, jwtClaims: any }, _res: ServerResponse, next: Function) {
-    const cookies = cookie.parse(req.headers.cookie)
+    if(!req.headers.cookie) {
+      return next();
+    }
+    const cookies = cookie.parse(req.headers.cookie);
     const jwtData = cookies[jwtDataName];
     const jwtSignature = cookies[jwtSignatureName];
     if (jwtData && jwtSignature) {
