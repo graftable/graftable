@@ -3,8 +3,8 @@ import { NodePlugin } from 'graphile-build';
 import { TAlgorithm } from 'jwt-simple';
 import { PostGraphileOptions } from 'postgraphile';
 import PostGraphileConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
-import { GraphqlAccessPlugin } from './graftable-access-plugin';
-import { GraftableAuthenticationPlugin } from './graftable-authenticate-plugin';
+// import { GraphqlAccessPlugin } from './graftable-access-plugin.ts.example';
+// import { GraftableAuthenticationPlugin } from './graftable-authenticate-plugin.ts.example';
 
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
@@ -48,8 +48,8 @@ const postgraphileOptions: PostGraphileOptions = {
     };
   },
   appendPlugins: [
-    GraphqlAccessPlugin,
-    GraftableAuthenticationPlugin,
+    // GraphqlAccessPlugin,
+    // GraftableAuthenticationPlugin,
     PgSimplifyInflectorPlugin,
     PostGraphileConnectionFilterPlugin
   ],
