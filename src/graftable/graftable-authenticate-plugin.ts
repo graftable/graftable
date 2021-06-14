@@ -152,18 +152,16 @@ const GraftableAuthenticationPlugin = makeExtendSchemaPlugin(build => ({
           throw errors[0];
         }
 
-        const { users } = data;
+        console.log(JSON.stringify(data, null, 2));
 
-        console.log(users);
-
-        if (users?.length != 1) {
+        if (data?.users?.length != 1) {
           deleteJwtCookies(context);
           return {
             result: 'FAILURE_EMAIL_OR_PASSWORD'
           };
         }
 
-        if (!users[0]?.passwordHash) {
+        if (!data?.users[0]?.passwordHash) {
           deleteJwtCookies(context);
           return {
             result: 'FAILURE_EMAIL_OR_PASSWORD'
