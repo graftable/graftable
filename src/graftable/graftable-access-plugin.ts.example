@@ -19,7 +19,7 @@ const GraphqlAccessPlugin = makeWrapResolversPlugin(
   },
   () => async (resolve, source, args, context, info) => {
     // context.setJwtClaims();
-    if (!context.jwtClaims || !context.jwtClaims.sub) {
+    if (!context?.jwtClaims?.sub) {
       throw new Error('Please invoke `authenticate` before using other query or mutation operations.');
     }
     return resolve(source, args, context, info);
