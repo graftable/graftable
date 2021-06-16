@@ -1,16 +1,11 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "outDir": "dist",
-        "strict": true
-    },
-    "exclude": [
-        "node_modules"
-    ],
-    "include": [
-        "src/**/*"
-    ]
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true
+  }
 }
