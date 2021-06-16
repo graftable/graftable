@@ -1,7 +1,11 @@
-import { Pool } from 'pg';
-import { DEFAULT_DATABASE_URL, GRAFTABLE_PREFIX } from './graftable-config';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.pgPool = void 0;
+const pg_1 = require("pg");
+const graftable_config_1 = require("./graftable-config");
 // LOOK: Configure DATABASE_URL here outside of graftable-config. Typically
 //       contains password not to be imported or used from client-side files.
-var _a = process.env, _b = GRAFTABLE_PREFIX + 'DATABASE_URL', _c = _a[_b], databaseUrl = _c === void 0 ? DEFAULT_DATABASE_URL : _c;
-var pgPool = new Pool({ connectionString: databaseUrl });
-export { pgPool };
+const { [graftable_config_1.GRAFTABLE_PREFIX + 'DATABASE_URL']: databaseUrl = graftable_config_1.DEFAULT_DATABASE_URL } = process.env;
+const pgPool = new pg_1.Pool({ connectionString: databaseUrl });
+exports.pgPool = pgPool;
+//# sourceMappingURL=graftable-pgpool.js.map

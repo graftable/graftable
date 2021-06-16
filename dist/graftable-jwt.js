@@ -1,24 +1,29 @@
-import cookie from 'cookie';
-import jwt from 'jwt-simple';
-import { GRAFTABLE_PREFIX, jwtDataName, jwtSignatureName } from './graftable-config';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const cookie_1 = __importDefault(require("cookie"));
+const jwt_simple_1 = __importDefault(require("jwt-simple"));
+const graftable_config_1 = require("./graftable-config");
 // LOOK: Configure JWT_SECRET here outside of graftable-config.
 //       Contains secret key not to be imported or used from client-side files.
-var _a = process.env, _b = GRAFTABLE_PREFIX + 'JWT_SECRET', jwtSecretInput = _a[_b];
+const { [graftable_config_1.GRAFTABLE_PREFIX + 'JWT_SECRET']: jwtSecretInput } = process.env;
 if (!jwtSecretInput || !jwtSecretInput.trim()) {
-    throw new Error(GRAFTABLE_PREFIX + 'JWT_SECRET' + " must be defined");
+    throw new Error(`${graftable_config_1.GRAFTABLE_PREFIX + 'JWT_SECRET'} must be defined`);
 }
-var jwtSecret = jwtSecretInput;
+const jwtSecret = jwtSecretInput;
 function jwtClaimsToReq() {
     return function jwtClaimsMiddleware(req, _res, next) {
         if (!req.headers.cookie) {
             return next();
         }
-        var cookies = cookie.parse(req.headers.cookie);
-        var jwtData = cookies[jwtDataName];
-        var jwtSignature = cookies[jwtSignatureName];
+        const cookies = cookie_1.default.parse(req.headers.cookie);
+        const jwtData = cookies[graftable_config_1.jwtDataName];
+        const jwtSignature = cookies[graftable_config_1.jwtSignatureName];
         if (jwtData && jwtSignature) {
             try {
-                var claims = jwt.decode(jwtData + "." + jwtSignature, jwtSecret);
+                const claims = jwt_simple_1.default.decode(`${jwtData}.${jwtSignature}`, jwtSecret);
                 // TODO check iat and nbf
                 // TODO check a blacklist from cache for logouts
                 // TODO rate limit
@@ -33,4 +38,5 @@ function jwtClaimsToReq() {
         return next();
     };
 }
-export default jwtClaimsToReq;
+exports.default = jwtClaimsToReq;
+//# sourceMappingURL=graftable-jwt.js.map

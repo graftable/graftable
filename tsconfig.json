@@ -2,10 +2,13 @@
   "compilerOptions": {
     "declaration": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "lib": ["ES2019"],
+    "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": "src",
-    "strict": true
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2019"
   }
 }
