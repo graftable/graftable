@@ -5,10 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postgraphileOptions = exports.otpWindow = exports.optStep = exports.otpSetupWindow = exports.jwtSignatureName = exports.jwtMaxAge = exports.jwtAlgorithm = exports.jwtDataName = exports.graphqlUrl = exports.graphqlFile = exports.databaseSchema = exports.GRAFTABLE_PREFIX = exports.DEFAULT_DATABASE_SCHEMA = exports.DEFAULT_DATABASE_URL = void 0;
 const pg_simplify_inflector_1 = __importDefault(require("@graphile-contrib/pg-simplify-inflector"));
-const graphile_build_1 = require("graphile-build");
-const postgraphile_plugin_connection_filter_1 = __importDefault(require("postgraphile-plugin-connection-filter"));
 // import { GraphqlAccessPlugin } from './graftable-access-plugin.ts.example';
 // import { GraftableAuthenticationPlugin } from './graftable-authenticate-plugin.ts.example';
+const pg_aggregates_1 = __importDefault(require("@graphile/pg-aggregates"));
+const graphile_build_1 = require("graphile-build");
+const postgraphile_plugin_connection_filter_1 = __importDefault(require("postgraphile-plugin-connection-filter"));
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
 const { GRAFTABLE_PREFIX = '' } = process.env;
@@ -48,6 +49,7 @@ const postgraphileOptions = {
     appendPlugins: [
         // GraphqlAccessPlugin,
         // GraftableAuthenticationPlugin,
+        pg_aggregates_1.default,
         pg_simplify_inflector_1.default,
         postgraphile_plugin_connection_filter_1.default
     ],
