@@ -25,6 +25,7 @@
     "@graphile/pg-aggregates": "^0.1.0",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.4.1",
+    "dotenv": "^10.0.0",
     "graphql": "^15.5.0",
     "graphql-zeus": "^3.0.7",
     "jwt-simple": "^0.5.6",
