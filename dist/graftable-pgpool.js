@@ -5,7 +5,6 @@ const pg_1 = require("pg");
 const graftable_config_1 = require("./graftable-config");
 // LOOK: Configure DATABASE_URL here outside of graftable-config. Typically
 //       contains password not to be imported or used from client-side files.
-console.log(JSON.stringify(process.env, null, 2));
 const { [graftable_config_1.GRAFTABLE_PREFIX + 'DATABASE_URL']: databaseUrl = graftable_config_1.DEFAULT_DATABASE_URL } = process.env;
 const pgPool = new pg_1.Pool({ connectionString: databaseUrl });
 exports.pgPool = pgPool;
