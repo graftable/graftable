@@ -25,9 +25,7 @@ const graphql_1 = require("graphql");
 const util_1 = require("util");
 const graftable_config_1 = require("./graftable-config");
 const graftable_schema_1 = require("./graftable-schema");
-const introspectionQuery = typeof GQL.getIntrospectionQuery === 'function'
-    ? GQL.getIntrospectionQuery()
-    : GQL.introspectionQuery;
+const introspectionQuery = typeof GQL.getIntrospectionQuery === 'function' ? GQL.getIntrospectionQuery() : GQL.introspectionQuery;
 const readFile = util_1.promisify(fs_1.readFile);
 const writeFile = util_1.promisify(fs_1.writeFile);
 async function writeFileIfDiffers(path, contents) {
@@ -66,7 +64,7 @@ schema {
   query: Query,
   mutation: Mutation
 }
-    `;
+`;
     if (graphqlPath) {
         await writeFileIfDiffers(graphqlPath, graphqlSchema);
     }
