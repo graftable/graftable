@@ -7,9 +7,7 @@ import { graphqlFile } from './graftable-config';
 import { postgraphileSchemaPromise } from './graftable-schema';
 
 const introspectionQuery =
-  typeof GQL.getIntrospectionQuery === 'function'
-    ? GQL.getIntrospectionQuery()
-    : (GQL as any).introspectionQuery;
+  typeof GQL.getIntrospectionQuery === 'function' ? GQL.getIntrospectionQuery() : (GQL as any).introspectionQuery;
 
 const readFile = promisify(origReadFile);
 const writeFile = promisify(origWriteFile);
@@ -31,13 +29,11 @@ async function writeFileIfDiffers(path: string, contents: string): Promise<void>
  */
 async function exportPostGraphileSchema(
   schemaOrPromise: GraphQLSchema | Promise<GraphQLSchema>,
-  options: PostGraphileOptions = {},
+  options: PostGraphileOptions = {}
 ): Promise<void> {
   const schema = await schemaOrPromise;
-  const jsonPath =
-    typeof options.exportJsonSchemaPath === 'string' ? options.exportJsonSchemaPath : null;
-  const graphqlPath =
-    typeof options.exportGqlSchemaPath === 'string' ? options.exportGqlSchemaPath : null;
+  const jsonPath = typeof options.exportJsonSchemaPath === 'string' ? options.exportJsonSchemaPath : null;
+  const graphqlPath = typeof options.exportGqlSchemaPath === 'string' ? options.exportGqlSchemaPath : null;
 
   // Sort schema, if requested
   const finalSchema =
@@ -52,14 +48,15 @@ async function exportPostGraphileSchema(
   }
 
   // Schema language version
-  const graphqlSchema = printSchema(finalSchema) +
+  const graphqlSchema =
+    printSchema(finalSchema) +
     `
 """WORKAROUND Zeus problem by appending schema entry points for [query, mutation, supscriptions]. """
 schema {
   query: Query,
   mutation: Mutation
 }
-    `;
+`;
   if (graphqlPath) {
     await writeFileIfDiffers(graphqlPath, graphqlSchema);
   }
