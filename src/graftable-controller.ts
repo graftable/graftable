@@ -1,5 +1,5 @@
 import { postgraphile } from 'postgraphile';
-import { databaseSchema, postgraphileOptions } from './graftable-config';
+import { databaseSchema, postgraphileOptions } from './graftable-config-server';
 import { pgPool } from './graftable-pgpool';
 
 const postgraphileController = postgraphile(pgPool, databaseSchema, postgraphileOptions);

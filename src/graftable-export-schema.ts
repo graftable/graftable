@@ -3,7 +3,7 @@ import * as GQL from 'graphql';
 import { graphql, GraphQLSchema, lexicographicSortSchema, printSchema } from 'graphql';
 import { PostGraphileOptions } from 'postgraphile/build/interfaces';
 import { promisify } from 'util';
-import { graphqlFile } from './graftable-config';
+import { graphqlFile } from './graftable-config-server';
 import { postgraphileSchemaPromise } from './graftable-schema';
 
 const introspectionQuery =

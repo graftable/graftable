@@ -16,7 +16,6 @@ const DEFAULT_DATABASE_SCHEMA = 'public';
 
 const {
   [GRAFTABLE_PREFIX + 'DATABASE_SCHEMA']: databaseSchema = DEFAULT_DATABASE_SCHEMA,
-  [GRAFTABLE_PREFIX + 'GRAPHQL_URL']: graphqlUrl = 'http://localhost:3000/api/graphql',
   [GRAFTABLE_PREFIX + 'GRAPHQL_DIR']: graphqlDir = 'graphql',
   [GRAFTABLE_PREFIX + 'GRAPHQL_FILE']: graphqlFile = `${graphqlDir}/schema.graphql`,
   [GRAFTABLE_PREFIX + 'GRAPHIQL_ROUTE']: graphiqlRoute = '/api/graphiql',
@@ -79,7 +78,6 @@ export {
   GRAFTABLE_PREFIX,
   databaseSchema,
   graphqlFile,
-  graphqlUrl,
   jwtDataName,
   jwtAlgorithm,
   jwtMaxAge,

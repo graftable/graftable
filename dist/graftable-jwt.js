@@ -5,12 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const cookie_1 = __importDefault(require("cookie"));
 const jwt_simple_1 = __importDefault(require("jwt-simple"));
-const graftable_config_1 = require("./graftable-config");
+const graftable_config_server_1 = require("./graftable-config-server");
 // LOOK: Configure JWT_SECRET here outside of graftable-config.
 //       Contains secret key not to be imported or used from client-side files.
-const { [graftable_config_1.GRAFTABLE_PREFIX + 'JWT_SECRET']: jwtSecretInput } = process.env;
+const { [graftable_config_server_1.GRAFTABLE_PREFIX + 'JWT_SECRET']: jwtSecretInput } = process.env;
 if (!jwtSecretInput || !jwtSecretInput.trim()) {
-    throw new Error(`${graftable_config_1.GRAFTABLE_PREFIX + 'JWT_SECRET'} must be defined`);
+    throw new Error(`${graftable_config_server_1.GRAFTABLE_PREFIX + 'JWT_SECRET'} must be defined`);
 }
 const jwtSecret = jwtSecretInput;
 function jwtClaimsToReq() {
@@ -19,8 +19,8 @@ function jwtClaimsToReq() {
             return next();
         }
         const cookies = cookie_1.default.parse(req.headers.cookie);
-        const jwtData = cookies[graftable_config_1.jwtDataName];
-        const jwtSignature = cookies[graftable_config_1.jwtSignatureName];
+        const jwtData = cookies[graftable_config_server_1.jwtDataName];
+        const jwtSignature = cookies[graftable_config_server_1.jwtSignatureName];
         if (jwtData && jwtSignature) {
             try {
                 const claims = jwt_simple_1.default.decode(`${jwtData}.${jwtSignature}`, jwtSecret);

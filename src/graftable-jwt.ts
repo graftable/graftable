@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { IncomingHttpHeaders, ServerResponse } from 'http';
 import jwt from 'jwt-simple';
-import { GRAFTABLE_PREFIX, jwtDataName, jwtSignatureName } from './graftable-config';
+import { GRAFTABLE_PREFIX, jwtDataName, jwtSignatureName } from './graftable-config-server';
 
 // LOOK: Configure JWT_SECRET here outside of graftable-config.
 //       Contains secret key not to be imported or used from client-side files.

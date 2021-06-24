@@ -23,7 +23,7 @@ const fs_1 = require("fs");
 const GQL = __importStar(require("graphql"));
 const graphql_1 = require("graphql");
 const util_1 = require("util");
-const graftable_config_1 = require("./graftable-config");
+const graftable_config_server_1 = require("./graftable-config-server");
 const graftable_schema_1 = require("./graftable-schema");
 const introspectionQuery = typeof GQL.getIntrospectionQuery === 'function' ? GQL.getIntrospectionQuery() : GQL.introspectionQuery;
 const readFile = util_1.promisify(fs_1.readFile);
@@ -69,5 +69,5 @@ schema {
         await writeFileIfDiffers(graphqlPath, graphqlSchema);
     }
 }
-(async () => await exportPostGraphileSchema(await graftable_schema_1.postgraphileSchemaPromise, { exportGqlSchemaPath: graftable_config_1.graphqlFile }))();
+(async () => await exportPostGraphileSchema(await graftable_schema_1.postgraphileSchemaPromise, { exportGqlSchemaPath: graftable_config_server_1.graphqlFile }))();
 //# sourceMappingURL=graftable-export-schema.js.map
