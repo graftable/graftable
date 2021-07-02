@@ -40,6 +40,13 @@ const jwtAlgorithm = jwtAlgorithmInput as TAlgorithm;
 
 const jwtMaxAge = parseInt(jwtMaxAgeString);
 
+let plugins;
+try {
+  plugins = require(`~/${graphqlDir}/plugins`);
+} catch(e) {
+  console.log(`Add graphql plugins to ${graphqlDir}/plugins`);
+}
+
 const postgraphileOptions: PostGraphileOptions = {
   async additionalGraphQLContextFromRequest(req, res) {
     return {
@@ -53,7 +60,8 @@ const postgraphileOptions: PostGraphileOptions = {
     // GraftableAuthenticationPlugin,
     PgAggregatesPlugin,
     PgSimplifyInflectorPlugin,
-    PostGraphileConnectionFilterPlugin
+    PostGraphileConnectionFilterPlugin,
+    ...plugins || []
   ],
   // disableDefaultMutations: true,
   dynamicJson: true,
