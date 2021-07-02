@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postgraphileOptions = exports.otpWindow = exports.optStep = exports.otpSetupWindow = exports.jwtSignatureName = exports.jwtMaxAge = exports.jwtAlgorithm = exports.jwtDataName = exports.graphqlFile = exports.databaseSchema = exports.GRAFTABLE_PREFIX = exports.DEFAULT_DATABASE_SCHEMA = exports.DEFAULT_DATABASE_URL = void 0;
+exports.postgraphileOptions = exports.otpWindow = exports.optStep = exports.otpSetupWindow = exports.jwtSignatureName = exports.jwtMaxAge = exports.jwtAlgorithm = exports.jwtDataName = exports.graphqlFile = exports.defaultPlugins = exports.databaseSchema = exports.GRAFTABLE_PREFIX = exports.DEFAULT_DATABASE_SCHEMA = exports.DEFAULT_DATABASE_URL = void 0;
 const pg_simplify_inflector_1 = __importDefault(require("@graphile-contrib/pg-simplify-inflector"));
 // import { GraphqlAccessPlugin } from './graftable-access-plugin.ts.example';
 // import { GraftableAuthenticationPlugin } from './graftable-authenticate-plugin.ts.example';
@@ -45,6 +45,15 @@ try {
 catch (e) {
     console.log(`Add graphql plugins to ${graphqlDir}/plugins`);
 }
+const defaultPlugins = [
+    // GraphqlAccessPlugin,
+    // GraftableAuthenticationPlugin,
+    pg_aggregates_1.default,
+    pg_simplify_inflector_1.default,
+    postgraphile_plugin_connection_filter_1.default,
+    postgraphile_plugin_nested_mutations_1.default
+];
+exports.defaultPlugins = defaultPlugins;
 const postgraphileOptions = {
     async additionalGraphQLContextFromRequest(req, res) {
         return {
@@ -53,15 +62,7 @@ const postgraphileOptions = {
             }
         };
     },
-    appendPlugins: [
-        // GraphqlAccessPlugin,
-        // GraftableAuthenticationPlugin,
-        pg_aggregates_1.default,
-        pg_simplify_inflector_1.default,
-        postgraphile_plugin_connection_filter_1.default,
-        postgraphile_plugin_nested_mutations_1.default,
-        ...plugins || []
-    ],
+    appendPlugins: [...defaultPlugins, ...(plugins || [])],
     // disableDefaultMutations: true,
     dynamicJson: true,
     graphileBuildOptions: {

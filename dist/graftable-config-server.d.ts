@@ -6,5 +6,6 @@ declare const DEFAULT_DATABASE_SCHEMA = "public";
 declare const databaseSchema: string, graphqlFile: string, jwtDataName: string, jwtSignatureName: string, otpSetupWindow: string | number, optStep: string | number, otpWindow: string | number;
 declare const jwtAlgorithm: TAlgorithm;
 declare const jwtMaxAge: number;
+declare const defaultPlugins: any[];
 declare const postgraphileOptions: PostGraphileOptions;
-export { DEFAULT_DATABASE_URL, DEFAULT_DATABASE_SCHEMA, GRAFTABLE_PREFIX, databaseSchema, graphqlFile, jwtDataName, jwtAlgorithm, jwtMaxAge, jwtSignatureName, otpSetupWindow, optStep, otpWindow, postgraphileOptions };
+export { DEFAULT_DATABASE_URL, DEFAULT_DATABASE_SCHEMA, GRAFTABLE_PREFIX, databaseSchema, defaultPlugins, graphqlFile, jwtDataName, jwtAlgorithm, jwtMaxAge, jwtSignatureName, otpSetupWindow, optStep, otpWindow, postgraphileOptions, };

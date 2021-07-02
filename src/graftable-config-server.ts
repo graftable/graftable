@@ -44,9 +44,18 @@ const jwtMaxAge = parseInt(jwtMaxAgeString);
 let plugins;
 try {
   plugins = require(`~/${graphqlDir}/plugins`);
-} catch(e) {
+} catch (e) {
   console.log(`Add graphql plugins to ${graphqlDir}/plugins`);
 }
+
+const defaultPlugins = [
+  // GraphqlAccessPlugin,
+  // GraftableAuthenticationPlugin,
+  PgAggregatesPlugin,
+  PgSimplifyInflectorPlugin,
+  PostGraphileConnectionFilterPlugin,
+  PostgraphileNestedMutationsPlugin
+];
 
 const postgraphileOptions: PostGraphileOptions = {
   async additionalGraphQLContextFromRequest(req, res) {
@@ -56,15 +65,7 @@ const postgraphileOptions: PostGraphileOptions = {
       }
     };
   },
-  appendPlugins: [
-    // GraphqlAccessPlugin,
-    // GraftableAuthenticationPlugin,
-    PgAggregatesPlugin,
-    PgSimplifyInflectorPlugin,
-    PostGraphileConnectionFilterPlugin,
-    PostgraphileNestedMutationsPlugin,
-    ...plugins || []
-  ],
+  appendPlugins: [...defaultPlugins, ...(plugins || [])],
   // disableDefaultMutations: true,
   dynamicJson: true,
   graphileBuildOptions: {
@@ -87,6 +88,7 @@ export {
   DEFAULT_DATABASE_SCHEMA,
   GRAFTABLE_PREFIX,
   databaseSchema,
+  defaultPlugins,
   graphqlFile,
   jwtDataName,
   jwtAlgorithm,
@@ -95,5 +97,5 @@ export {
   otpSetupWindow,
   optStep,
   otpWindow,
-  postgraphileOptions
+  postgraphileOptions,
 };
