@@ -6,6 +6,7 @@ import { NodePlugin } from 'graphile-build';
 import { TAlgorithm } from 'jwt-simple';
 import { PostGraphileOptions } from 'postgraphile';
 import PostGraphileConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
+import PostgraphileNestedMutationsPlugin from 'postgraphile-plugin-nested-mutations';
 
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
@@ -61,6 +62,7 @@ const postgraphileOptions: PostGraphileOptions = {
     PgAggregatesPlugin,
     PgSimplifyInflectorPlugin,
     PostGraphileConnectionFilterPlugin,
+    PostgraphileNestedMutationsPlugin,
     ...plugins || []
   ],
   // disableDefaultMutations: true,

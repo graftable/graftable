@@ -10,6 +10,7 @@ const pg_simplify_inflector_1 = __importDefault(require("@graphile-contrib/pg-si
 const pg_aggregates_1 = __importDefault(require("@graphile/pg-aggregates"));
 const graphile_build_1 = require("graphile-build");
 const postgraphile_plugin_connection_filter_1 = __importDefault(require("postgraphile-plugin-connection-filter"));
+const postgraphile_plugin_nested_mutations_1 = __importDefault(require("postgraphile-plugin-nested-mutations"));
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
 const { GRAFTABLE_PREFIX = '' } = process.env;
@@ -58,6 +59,7 @@ const postgraphileOptions = {
         pg_aggregates_1.default,
         pg_simplify_inflector_1.default,
         postgraphile_plugin_connection_filter_1.default,
+        postgraphile_plugin_nested_mutations_1.default,
         ...plugins || []
     ],
     // disableDefaultMutations: true,
