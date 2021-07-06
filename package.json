@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/graftable/graftable#readme",
   "dependencies": {
-    "@fullstackio/postgraphile-upsert-plugin": "^1.4.0",
     "@graphile-contrib/pg-order-by-related": "^1.0.0-beta.6",
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
     "@graphile/pg-aggregates": "^0.1.0",
@@ -36,6 +35,7 @@
     "postgraphile": "^4.12.3",
     "postgraphile-plugin-connection-filter": "^2.2.1",
     "postgraphile-plugin-nested-mutations": "^1.1.0",
+    "postgraphile-upsert-plugin": "^1.0.5",
     "wavy": "^1.0.4"
   },
   "devDependencies": {

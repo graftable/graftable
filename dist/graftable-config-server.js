@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postgraphileOptions = exports.otpWindow = exports.optStep = exports.otpSetupWindow = exports.jwtSignatureName = exports.jwtMaxAge = exports.jwtAlgorithm = exports.jwtDataName = exports.graphqlFile = exports.defaultPlugins = exports.databaseSchema = exports.GRAFTABLE_PREFIX = exports.DEFAULT_DATABASE_SCHEMA = exports.DEFAULT_DATABASE_URL = void 0;
-const postgraphile_upsert_plugin_1 = require("@fullstackio/postgraphile-upsert-plugin");
 const pg_order_by_related_1 = __importDefault(require("@graphile-contrib/pg-order-by-related"));
 const pg_simplify_inflector_1 = __importDefault(require("@graphile-contrib/pg-simplify-inflector"));
 // import { GraphqlAccessPlugin } from './graftable-access-plugin.ts.example';
@@ -13,6 +12,7 @@ const pg_aggregates_1 = __importDefault(require("@graphile/pg-aggregates"));
 const graphile_build_1 = require("graphile-build");
 const postgraphile_plugin_connection_filter_1 = __importDefault(require("postgraphile-plugin-connection-filter"));
 const postgraphile_plugin_nested_mutations_1 = __importDefault(require("postgraphile-plugin-nested-mutations"));
+const postgraphile_upsert_plugin_1 = require("postgraphile-upsert-plugin");
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
 const { GRAFTABLE_PREFIX = '' } = process.env;
