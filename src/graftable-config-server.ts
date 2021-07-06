@@ -1,3 +1,5 @@
+import { PgMutationUpsertPlugin } from '@fullstackio/postgraphile-upsert-plugin';
+import PgOrderByRelatedPlugin from '@graphile-contrib/pg-order-by-related';
 import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector';
 // import { GraphqlAccessPlugin } from './graftable-access-plugin.ts.example';
 // import { GraftableAuthenticationPlugin } from './graftable-authenticate-plugin.ts.example';
@@ -7,7 +9,6 @@ import { TAlgorithm } from 'jwt-simple';
 import { PostGraphileOptions } from 'postgraphile';
 import PostGraphileConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
 import PostgraphileNestedMutationsPlugin from 'postgraphile-plugin-nested-mutations';
-import { PgMutationUpsertPlugin } from '@fullstackio/postgraphile-upsert-plugin';
 
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
@@ -54,6 +55,7 @@ const defaultPlugins = [
   // GraphqlAccessPlugin,
   PgAggregatesPlugin,
   PgMutationUpsertPlugin,
+  PgOrderByRelatedPlugin,
   PgSimplifyInflectorPlugin,
   PostGraphileConnectionFilterPlugin,
   PostgraphileNestedMutationsPlugin
@@ -99,5 +101,5 @@ export {
   otpSetupWindow,
   optStep,
   otpWindow,
-  postgraphileOptions,
+  postgraphileOptions
 };
