@@ -7,6 +7,7 @@ import { TAlgorithm } from 'jwt-simple';
 import { PostGraphileOptions } from 'postgraphile';
 import PostGraphileConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
 import PostgraphileNestedMutationsPlugin from 'postgraphile-plugin-nested-mutations';
+import { PgMutationUpsertPlugin } from '@fullstackio/postgraphile-upsert-plugin';
 
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
@@ -49,9 +50,10 @@ try {
 }
 
 const defaultPlugins = [
-  // GraphqlAccessPlugin,
   // GraftableAuthenticationPlugin,
+  // GraphqlAccessPlugin,
   PgAggregatesPlugin,
+  PgMutationUpsertPlugin,
   PgSimplifyInflectorPlugin,
   PostGraphileConnectionFilterPlugin,
   PostgraphileNestedMutationsPlugin

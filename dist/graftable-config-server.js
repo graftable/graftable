@@ -11,6 +11,7 @@ const pg_aggregates_1 = __importDefault(require("@graphile/pg-aggregates"));
 const graphile_build_1 = require("graphile-build");
 const postgraphile_plugin_connection_filter_1 = __importDefault(require("postgraphile-plugin-connection-filter"));
 const postgraphile_plugin_nested_mutations_1 = __importDefault(require("postgraphile-plugin-nested-mutations"));
+const postgraphile_upsert_plugin_1 = require("@fullstackio/postgraphile-upsert-plugin");
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
 const { GRAFTABLE_PREFIX = '' } = process.env;
@@ -46,9 +47,10 @@ catch (e) {
     console.log(`Add graphql plugins to ${graphqlDir}/plugins`);
 }
 const defaultPlugins = [
-    // GraphqlAccessPlugin,
     // GraftableAuthenticationPlugin,
+    // GraphqlAccessPlugin,
     pg_aggregates_1.default,
+    postgraphile_upsert_plugin_1.PgMutationUpsertPlugin,
     pg_simplify_inflector_1.default,
     postgraphile_plugin_connection_filter_1.default,
     postgraphile_plugin_nested_mutations_1.default
