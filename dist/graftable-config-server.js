@@ -70,6 +70,7 @@ const postgraphileOptions = {
     // disableDefaultMutations: true,
     dynamicJson: true,
     graphileBuildOptions: {
+        connectionFilterRelations: true,
         pgOmitListSuffix: true
     },
     graphiqlRoute,
