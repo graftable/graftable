@@ -4,5 +4,12 @@ import { pgPool } from './graftable-pgpool';
 
 const postgraphileController = postgraphile(pgPool, databaseSchema, postgraphileOptions);
 
+const config = {
+  api: {
+    bodyParser: false,
+    externalResolver: true
+  }
+};
+
 export default postgraphileController;
-export { postgraphileController };
+export { config, postgraphileController };
