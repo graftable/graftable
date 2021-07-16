@@ -2,11 +2,12 @@
   "name": "graftable",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/graftable.js",
+  "bin": "dist/graftable.js",
   "types": "dist/index.d.ts",
   "private": true,
   "scripts": {
-    "prebuild": "rimraf dist/",
+    "prebuild": "npx rimraf dist/",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
