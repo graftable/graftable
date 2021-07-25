@@ -14,11 +14,13 @@ const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
 
 const { GRAFTABLE_PREFIX = '' } = process.env;
-const DEFAULT_DATABASE_URL = 'postgres://localhost/graphql';
 const DEFAULT_DATABASE_SCHEMA = 'public';
+const DEFAULT_DATABASE_URL = 'postgres://localhost/graphql';
 
 const {
   [GRAFTABLE_PREFIX + 'DATABASE_SCHEMA']: databaseSchema = DEFAULT_DATABASE_SCHEMA,
+  [GRAFTABLE_PREFIX + 'DATABASE_FILE']: databaseFile = 'data/schema.sql',
+  [GRAFTABLE_PREFIX + 'DATABASE_URL']: databaseUrl = DEFAULT_DATABASE_URL,
   [GRAFTABLE_PREFIX + 'GRAPHQL_DIR']: graphqlDir = 'graphql',
   [GRAFTABLE_PREFIX + 'GRAPHQL_FILE']: graphqlFile = `${graphqlDir}/schema.graphql`,
   [GRAFTABLE_PREFIX + 'GRAPHIQL_ROUTE']: graphiqlRoute = '/api/graphiql',
@@ -89,10 +91,12 @@ const postgraphileOptions: PostGraphileOptions = {
 };
 
 export {
-  DEFAULT_DATABASE_URL,
-  DEFAULT_DATABASE_SCHEMA,
   GRAFTABLE_PREFIX,
+  DEFAULT_DATABASE_SCHEMA,
+  DEFAULT_DATABASE_URL,
   databaseSchema,
+  databaseFile,
+  databaseUrl,
   defaultPlugins,
   graphqlFile,
   jwtDataName,
