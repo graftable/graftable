@@ -1,2 +1,2 @@
-declare const postgraphileSchemaPromise: Promise<import("graphql").GraphQLSchema>;
-export { postgraphileSchemaPromise };
+declare const schemaPromise: Promise<import("graphql").GraphQLSchema>;
+export { schemaPromise };

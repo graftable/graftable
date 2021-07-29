@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
 const graftable_config_server_1 = require("./graftable-config-server");
+const graftable_export_schema_1 = require("./graftable-export-schema");
 const commands = {
     destroy: async () => {
         const psql = `psql postgres < ${graftable_config_server_1.databaseFile}`;
@@ -12,11 +13,7 @@ const commands = {
         });
     },
     graphql: async () => {
-        const graphql = `echo graphql`;
-        await child_process_1.spawn(graphql, [], {
-            shell: true,
-            stdio: 'inherit'
-        });
+        await graftable_export_schema_1.exportSchema();
     },
     seed: async () => {
         const seed = `echo seed`;

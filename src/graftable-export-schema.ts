@@ -4,7 +4,7 @@ import { graphql, GraphQLSchema, lexicographicSortSchema, printSchema } from 'gr
 import { PostGraphileOptions } from 'postgraphile/build/interfaces';
 import { promisify } from 'util';
 import { graphqlFile } from './graftable-config-server';
-import { postgraphileSchemaPromise } from './graftable-schema';
+import { schemaPromise } from './graftable-schema';
 
 const introspectionQuery =
   typeof GQL.getIntrospectionQuery === 'function' ? GQL.getIntrospectionQuery() : (GQL as any).introspectionQuery;
@@ -27,9 +27,9 @@ async function writeFileIfDiffers(path: string, contents: string): Promise<void>
 /**
  * Exports a PostGraphile schema by looking at a Postgres client.
  */
-async function exportPostGraphileSchema(
-  schemaOrPromise: GraphQLSchema | Promise<GraphQLSchema>,
-  options: PostGraphileOptions = {}
+export async function exportSchema(
+  schemaOrPromise: GraphQLSchema | Promise<GraphQLSchema> = schemaPromise,
+  options: PostGraphileOptions = { exportGqlSchemaPath: graphqlFile }
 ): Promise<void> {
   const schema = await schemaOrPromise;
   const jsonPath = typeof options.exportJsonSchemaPath === 'string' ? options.exportJsonSchemaPath : null;
@@ -45,21 +45,21 @@ async function exportPostGraphileSchema(
   if (jsonPath) {
     const result = await graphql(finalSchema, introspectionQuery);
     await writeFileIfDiffers(jsonPath, JSON.stringify(result, null, 2));
+    console.log(`Wrote JSON schema to file \`jsonPath\``);
   }
 
-  // Schema language version
-  const graphqlSchema =
-    printSchema(finalSchema) +
-    `
+  if (graphqlPath) {
+    // Schema language version
+    const graphqlSchema =
+      printSchema(finalSchema) +
+      `
 """WORKAROUND Zeus problem by appending schema entry points for [query, mutation, supscriptions]. """
 schema {
-  query: Query,
-  mutation: Mutation
+query: Query,
+mutation: Mutation
 }
 `;
-  if (graphqlPath) {
     await writeFileIfDiffers(graphqlPath, graphqlSchema);
+    console.log(`Wrote GraphQL schema to file \`graphqlPath\``);
   }
 }
-
-(async () => await exportPostGraphileSchema(await postgraphileSchemaPromise, { exportGqlSchemaPath: graphqlFile }))();

@@ -2,6 +2,7 @@
 import { spawn, spawnSync } from 'child_process';
 import { CommandCompleteMessage } from 'pg-protocol/dist/messages';
 import { databaseUrl, databaseFile } from './graftable-config-server';
+import { exportSchema } from './graftable-export-schema';
 
 const commands = {
   destroy: async () => {
@@ -12,11 +13,7 @@ const commands = {
     });
   },
   graphql: async () => {
-    const graphql = `echo graphql`;
-    await spawn(graphql, [], {
-      shell: true,
-      stdio: 'inherit'
-    });
+    await exportSchema();
   },
   seed: async () => {
     const seed = `echo seed`;
@@ -33,6 +30,9 @@ const commands = {
     });
   }
 };
+
+
+// TODO TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' npx ts-node --transpile-only -r dotenv/config node_modules/graftable/dist/graftable-export-schema.js dotenv_config_path=.env.local
 
 type Command = keyof typeof commands;
 

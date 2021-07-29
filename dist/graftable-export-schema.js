@@ -19,6 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.exportSchema = void 0;
 const fs_1 = require("fs");
 const GQL = __importStar(require("graphql"));
 const graphql_1 = require("graphql");
@@ -43,7 +44,7 @@ async function writeFileIfDiffers(path, contents) {
 /**
  * Exports a PostGraphile schema by looking at a Postgres client.
  */
-async function exportPostGraphileSchema(schemaOrPromise, options = {}) {
+async function exportSchema(schemaOrPromise = graftable_schema_1.schemaPromise, options = { exportGqlSchemaPath: graftable_config_server_1.graphqlFile }) {
     const schema = await schemaOrPromise;
     const jsonPath = typeof options.exportJsonSchemaPath === 'string' ? options.exportJsonSchemaPath : null;
     const graphqlPath = typeof options.exportGqlSchemaPath === 'string' ? options.exportGqlSchemaPath : null;
@@ -55,19 +56,21 @@ async function exportPostGraphileSchema(schemaOrPromise, options = {}) {
     if (jsonPath) {
         const result = await graphql_1.graphql(finalSchema, introspectionQuery);
         await writeFileIfDiffers(jsonPath, JSON.stringify(result, null, 2));
+        console.log(`Wrote JSON schema to file \`jsonPath\``);
     }
-    // Schema language version
-    const graphqlSchema = graphql_1.printSchema(finalSchema) +
-        `
+    if (graphqlPath) {
+        // Schema language version
+        const graphqlSchema = graphql_1.printSchema(finalSchema) +
+            `
 """WORKAROUND Zeus problem by appending schema entry points for [query, mutation, supscriptions]. """
 schema {
-  query: Query,
-  mutation: Mutation
+query: Query,
+mutation: Mutation
 }
 `;
-    if (graphqlPath) {
         await writeFileIfDiffers(graphqlPath, graphqlSchema);
+        console.log(`Wrote GraphQL schema to file \`graphqlPath\``);
     }
 }
-(async () => await exportPostGraphileSchema(await graftable_schema_1.postgraphileSchemaPromise, { exportGqlSchemaPath: graftable_config_server_1.graphqlFile }))();
+exports.exportSchema = exportSchema;
 //# sourceMappingURL=graftable-export-schema.js.map
