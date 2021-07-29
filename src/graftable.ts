@@ -17,7 +17,7 @@ const commands = {
     });
     return exitCode == 0;
   },
-  // graphql: exportSchema(),
+  graphql: exportSchema,
   seed: async () => {
     const seed = `echo seed`;
     await spawn(seed, [], {
@@ -56,6 +56,8 @@ if (hasErrors) {
 }
 
 // (async () => await commands.destroy())();
+(async () => await commands.graphql())();
+
 // // (async () =>
 //   args.reduce(async (p, a) => {
 //     const command = commands[a as Command];
