@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
 const graftable_config_server_1 = require("./graftable-config-server");
-const graftable_export_schema_1 = require("./graftable-export-schema");
 const commands = {
     destroy: async () => {
         const psql = `psql postgres < ${graftable_config_server_1.databaseFile}`;
@@ -12,26 +11,12 @@ const commands = {
             shell: true,
             stdio: 'inherit'
         });
-        try {
-            const exitCode = await new Promise((resolve, reject) => {
-                psqlP.on('exit', resolve);
-            });
-            return exitCode == 0;
-        }
-        catch (e) {
-            return false;
-        }
+        const exitCode = await new Promise((resolve, reject) => {
+            psqlP.on('exit', resolve);
+        });
+        return exitCode == 0;
     },
-    graphql: async () => {
-        try {
-            await graftable_export_schema_1.exportSchema();
-            return true;
-        }
-        catch (e) {
-            console.log(e);
-            return false;
-        }
-    },
+    // graphql: exportSchema(),
     seed: async () => {
         const seed = `echo seed`;
         await child_process_1.spawn(seed, [], {

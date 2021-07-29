@@ -49,7 +49,7 @@ let plugins;
 try {
   plugins = require(`~/${graphqlDir}/plugins`);
 } catch (e) {
-  console.log(`Add graphql plugins to ${graphqlDir}/plugins`);
+  console.log(`Info: graphql plugins can be added to the ${graphqlDir}/plugins directory`);
 }
 
 const defaultPlugins = [

@@ -12,24 +12,12 @@ const commands = {
       shell: true,
       stdio: 'inherit'
     });
-    try {
-      const exitCode: number = await new Promise((resolve, reject) => {
-        psqlP.on('exit', resolve);
-      });
-      return exitCode == 0;
-    } catch(e) {
-      return false;
-    }
+    const exitCode: number = await new Promise((resolve, reject) => {
+      psqlP.on('exit', resolve);
+    });
+    return exitCode == 0;
   },
-  graphql: async () => {
-    try {
-      await exportSchema();
-      return true;
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
-  },
+  // graphql: exportSchema(),
   seed: async () => {
     const seed = `echo seed`;
     await spawn(seed, [], {
@@ -47,7 +35,8 @@ const commands = {
 };
 
 // TODO TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' npx ts-node --transpile-only -r dotenv/config node_modules/graftable/dist/graftable-export-schema.js dotenv_config_path=.env.local
-
+// TODO "seed": "npx ts-node --transpile-only -r dotenv/config data/seed/index.ts dotenv_config_path=.env.local",
+// TODO "graphql:zeus": "npx zeus graphql/schema.graphql ./graphql --typescript",
 type Command = keyof typeof commands;
 
 const commandKeys = Object.keys(commands);
