@@ -7,13 +7,31 @@ const graftable_export_schema_1 = require("./graftable-export-schema");
 const commands = {
     destroy: async () => {
         const psql = `psql postgres < ${graftable_config_server_1.databaseFile}`;
-        const r = await child_process_1.spawn(psql, [], {
+        console.log(psql);
+        const psqlP = child_process_1.spawn(psql, [], {
             shell: true,
             stdio: 'inherit'
         });
-        console.log(JSON.stringify(process.stderr, null, 2));
+        try {
+            const exitCode = await new Promise((resolve, reject) => {
+                psqlP.on('exit', resolve);
+            });
+            return exitCode == 0;
+        }
+        catch (e) {
+            return false;
+        }
     },
-    graphql: async () => await graftable_export_schema_1.exportSchema(),
+    graphql: async () => {
+        try {
+            await graftable_export_schema_1.exportSchema();
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
+    },
     seed: async () => {
         const seed = `echo seed`;
         await child_process_1.spawn(seed, [], {
@@ -41,19 +59,20 @@ argErrors.map(a => {
 if (hasErrors) {
     process.exit(1);
 }
-(async () => args.reduce(async (p, a) => {
-    const command = commands[a];
-    if (await p) {
-        return p;
-    }
-    try {
-        await command();
-        console.log(`Done: running \`graftable ${a}\` command.`);
-        return p;
-    }
-    catch (e) {
-        console.log(`Error: running \`graftable ${a}\` command.`);
-        return Promise.resolve(true);
-    }
-}, Promise.resolve(false)))();
+// (async () => await commands.destroy())();
+// // (async () =>
+//   args.reduce(async (p, a) => {
+//     const command = commands[a as Command];
+//     if (await p) {
+//       return p;
+//     }
+//     try {
+//       await command();
+//       console.log(`Done: running \`graftable ${a}\` command.`);
+//       return p;
+//     } catch (e) {
+//       console.log(`Error: running \`graftable ${a}\` command.`);
+//       throw e;
+//     }
+//   }, Promise.resolve(false)))();
 //# sourceMappingURL=graftable.js.map

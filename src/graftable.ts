@@ -7,13 +7,29 @@ import { exportSchema } from './graftable-export-schema';
 const commands = {
   destroy: async () => {
     const psql = `psql postgres < ${databaseFile}`;
-    const r = await spawn(psql, [], {
+    console.log(psql);
+    const psqlP = spawn(psql, [], {
       shell: true,
       stdio: 'inherit'
     });
-    console.log(JSON.stringify(process.stderr, null, 2));
+    try {
+      const exitCode: number = await new Promise((resolve, reject) => {
+        psqlP.on('exit', resolve);
+      });
+      return exitCode == 0;
+    } catch(e) {
+      return false;
+    }
   },
-  graphql: async () => await exportSchema(),
+  graphql: async () => {
+    try {
+      await exportSchema();
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  },
   seed: async () => {
     const seed = `echo seed`;
     await spawn(seed, [], {
@@ -50,18 +66,19 @@ if (hasErrors) {
   process.exit(1);
 }
 
-(async () =>
-  args.reduce(async (p, a) => {
-    const command = commands[a as Command];
-    if (await p) {
-      return p;
-    }
-    try {
-      await command();
-      console.log(`Done: running \`graftable ${a}\` command.`);
-      return p;
-    } catch (e) {
-      console.log(`Error: running \`graftable ${a}\` command.`);
-      return Promise.resolve(true);
-    }
-  }, Promise.resolve(false)))();
+// (async () => await commands.destroy())();
+// // (async () =>
+//   args.reduce(async (p, a) => {
+//     const command = commands[a as Command];
+//     if (await p) {
+//       return p;
+//     }
+//     try {
+//       await command();
+//       console.log(`Done: running \`graftable ${a}\` command.`);
+//       return p;
+//     } catch (e) {
+//       console.log(`Error: running \`graftable ${a}\` command.`);
+//       throw e;
+//     }
+//   }, Promise.resolve(false)))();
