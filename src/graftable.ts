@@ -56,7 +56,7 @@ if (hasErrors) {
 }
 
 // (async () => await commands.destroy())();
-(async () => await commands.graphql())();
+(async () => await commands.graphql(undefined, {}))();
 
 // // (async () =>
 //   args.reduce(async (p, a) => {

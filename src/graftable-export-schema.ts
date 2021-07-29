@@ -30,27 +30,28 @@ export async function exportSchema(
   schemaOrPromise?: GraphQLSchema | Promise<GraphQLSchema>,
   options: PostGraphileOptions = { exportGqlSchemaPath: graphqlFile }
 ): Promise<void> {
-  const jsonPath = typeof options.exportJsonSchemaPath === 'string' ? options.exportJsonSchemaPath : null;
-  const graphqlPath = typeof options.exportGqlSchemaPath === 'string' ? options.exportGqlSchemaPath : null;
+  const jsonPath = typeof options.exportJsonSchemaPath === 'string' && options.exportJsonSchemaPath;
+  const graphqlPath = typeof options.exportGqlSchemaPath === 'string' && options.exportGqlSchemaPath;
+  if (!jsonPath && !graphqlPath) {
+    console.log(`Info: no export paths specified`);
+    return;
+  }
 
-  const schema = schemaOrPromise || (await import('./graftable-schema')).schemaPromise;
+  const schemaBase = schemaOrPromise || (await import('./graftable-schema')).schemaPromise;
+  const schema =
+    (options.sortExport && lexicographicSortSchema && lexicographicSortSchema(await schemaBase)) || (await schemaBase);
 
-  const configureSchema = async (s: GraphQLSchema | Promise<GraphQLSchema>) =>
-    options.sortExport && lexicographicSortSchema ? lexicographicSortSchema(await s) : s;
-
-  // JSON version
+  // JSON schema
   if (jsonPath) {
-    const finalSchema = await configureSchema(schema);
-    const result = await graphql(finalSchema, introspectionQuery);
+    const result = await graphql(schema, introspectionQuery);
     await writeFileIfDiffers(jsonPath, JSON.stringify(result, null, 2));
     console.log(`Wrote JSON schema to file \`jsonPath\``);
   }
 
+  // GraphQL schema
   if (graphqlPath) {
-    // Schema language version
-    const finalSchema = await configureSchema(schema);
     const graphqlSchema =
-      printSchema(finalSchema) +
+      printSchema(schema) +
       `
   """WORKAROUND Zeus problem by appending schema entry points for [query, mutation, supscriptions]. """
   schema {
@@ -59,6 +60,6 @@ export async function exportSchema(
   }
   `;
     await writeFileIfDiffers(graphqlPath, graphqlSchema);
-    console.log(`Wrote GraphQL schema to file \`graphqlPath\``);
+    console.log(`Done: wrote GraphQL schema to file \`graphqlPath\``);
   }
 }

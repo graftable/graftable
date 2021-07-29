@@ -44,21 +44,23 @@ async function writeFileIfDiffers(path, contents) {
  * Exports a PostGraphile schema by looking at a Postgres client.
  */
 async function exportSchema(schemaOrPromise, options = { exportGqlSchemaPath: graftable_config_server_1.graphqlFile }) {
-    const jsonPath = typeof options.exportJsonSchemaPath === 'string' ? options.exportJsonSchemaPath : null;
-    const graphqlPath = typeof options.exportGqlSchemaPath === 'string' ? options.exportGqlSchemaPath : null;
-    const schema = schemaOrPromise || (await Promise.resolve().then(() => __importStar(require('./graftable-schema')))).schemaPromise;
-    const configureSchema = async (s) => options.sortExport && graphql_1.lexicographicSortSchema ? graphql_1.lexicographicSortSchema(await s) : s;
-    // JSON version
+    const jsonPath = typeof options.exportJsonSchemaPath === 'string' && options.exportJsonSchemaPath;
+    const graphqlPath = typeof options.exportGqlSchemaPath === 'string' && options.exportGqlSchemaPath;
+    if (!jsonPath && !graphqlPath) {
+        console.log(`Info: no export paths specified`);
+        return;
+    }
+    const schemaBase = schemaOrPromise || (await Promise.resolve().then(() => __importStar(require('./graftable-schema')))).schemaPromise;
+    const schema = (options.sortExport && graphql_1.lexicographicSortSchema && graphql_1.lexicographicSortSchema(await schemaBase)) || (await schemaBase);
+    // JSON schema
     if (jsonPath) {
-        const finalSchema = await configureSchema(schema);
-        const result = await graphql_1.graphql(finalSchema, introspectionQuery);
+        const result = await graphql_1.graphql(schema, introspectionQuery);
         await writeFileIfDiffers(jsonPath, JSON.stringify(result, null, 2));
         console.log(`Wrote JSON schema to file \`jsonPath\``);
     }
+    // GraphQL schema
     if (graphqlPath) {
-        // Schema language version
-        const finalSchema = await configureSchema(schema);
-        const graphqlSchema = graphql_1.printSchema(finalSchema) +
+        const graphqlSchema = graphql_1.printSchema(schema) +
             `
   """WORKAROUND Zeus problem by appending schema entry points for [query, mutation, supscriptions]. """
   schema {
@@ -67,7 +69,7 @@ async function exportSchema(schemaOrPromise, options = { exportGqlSchemaPath: gr
   }
   `;
         await writeFileIfDiffers(graphqlPath, graphqlSchema);
-        console.log(`Wrote GraphQL schema to file \`graphqlPath\``);
+        console.log(`Done: wrote GraphQL schema to file \`graphqlPath\``);
     }
 }
 exports.exportSchema = exportSchema;
