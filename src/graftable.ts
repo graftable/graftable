@@ -3,8 +3,6 @@ import path from 'path';
 import dotenv from 'dotenv';
 const envPath = path.resolve(__dirname, '../../../.env');
 const envPathLocal = path.resolve(__dirname, '../../../.env.local');
-console.log(envPath);
-console.log(envPathLocal);
 dotenv.config({ path: envPath });
 dotenv.config({ path: envPathLocal });
 

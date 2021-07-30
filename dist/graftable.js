@@ -27,8 +27,6 @@ const path_1 = __importDefault(require("path"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const envPath = path_1.default.resolve(__dirname, '../../../.env');
 const envPathLocal = path_1.default.resolve(__dirname, '../../../.env.local');
-console.log(envPath);
-console.log(envPathLocal);
 dotenv_1.default.config({ path: envPath });
 dotenv_1.default.config({ path: envPathLocal });
 const child_process_1 = require("child_process");
