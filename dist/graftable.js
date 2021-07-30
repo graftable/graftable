@@ -25,6 +25,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
 const dotenv_1 = __importDefault(require("dotenv"));
+// import fs from 'fs';
 const CLIClass_1 = require("graphql-zeus/lib/CLI/CLIClass");
 const graftable_config_server_1 = require("./graftable-config-server");
 const graftable_export_schema_1 = require("./graftable-export-schema");
