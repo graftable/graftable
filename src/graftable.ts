@@ -1,8 +1,15 @@
 #! /usr/bin/env node
 import { spawn } from 'child_process';
+import dotenv from 'dotenv';
+import fs from 'fs';
 import { CLI } from 'graphql-zeus/lib/CLI/CLIClass';
 import { databaseFile, databaseSeed, graphqlDir, graphqlFile } from './graftable-config-server';
 import { exportSchema } from './graftable-export-schema';
+
+const ENV_LOCAL = '.env.local';
+const hasEnvLocal = fs.existsSync(ENV_LOCAL);
+const dotEnvConfig = hasEnvLocal ? { path: ENV_LOCAL } : undefined;
+dotenv.config(dotEnvConfig);
 
 const commands = {
   destroy: async () => {
