@@ -33,10 +33,6 @@ const commands = {
   }
 };
 
-// TODO TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' npx ts-node --transpile-only -r dotenv/config node_modules/graftable/dist/graftable-export-schema.js dotenv_config_path=.env.local
-// TODO "seed": "npx ts-node --transpile-only -r dotenv/config data/seed/index.ts dotenv_config_path=.env.local",
-// TODO "graphql:zeus": "npx zeus graphql/schema.graphql ./graphql --typescript",
-
 type Command = keyof typeof commands;
 
 const commandKeys = Object.keys(commands);
@@ -66,4 +62,5 @@ if (hasErrors) {
       throw e;
     }
   }
+  process.exit();
 })();

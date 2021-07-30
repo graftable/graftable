@@ -78,5 +78,6 @@ if (hasErrors) {
             throw e;
         }
     }
+    process.exit();
 })();
 //# sourceMappingURL=graftable.js.map
