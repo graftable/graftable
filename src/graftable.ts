@@ -5,11 +5,15 @@ import dotenv from 'dotenv';
 import { CLI } from 'graphql-zeus/lib/CLI/CLIClass';
 import { databaseFile, databaseSeed, graphqlDir, graphqlFile } from './graftable-config-server';
 import { exportSchema } from './graftable-export-schema';
+import path from 'path';
+
+// const path = require('path')
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 // const ENV_LOCAL = '.env.local';
 // const hasEnvLocal = fs.existsSync(ENV_LOCAL);
 // const dotEnvConfig = hasEnvLocal ? { path: ENV_LOCAL } : undefined;
-dotenv.config();
+// dotenv.config();
 
 const commands = {
   destroy: async () => {

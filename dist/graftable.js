@@ -29,10 +29,13 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const CLIClass_1 = require("graphql-zeus/lib/CLI/CLIClass");
 const graftable_config_server_1 = require("./graftable-config-server");
 const graftable_export_schema_1 = require("./graftable-export-schema");
+const path_1 = __importDefault(require("path"));
+// const path = require('path')
+dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 // const ENV_LOCAL = '.env.local';
 // const hasEnvLocal = fs.existsSync(ENV_LOCAL);
 // const dotEnvConfig = hasEnvLocal ? { path: ENV_LOCAL } : undefined;
-dotenv_1.default.config();
+// dotenv.config();
 const commands = {
     destroy: async () => {
         const psql = `psql postgres < ${graftable_config_server_1.databaseFile}`;
