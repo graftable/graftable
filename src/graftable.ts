@@ -1,17 +1,17 @@
 #! /usr/bin/env node
-import { spawn } from 'child_process';
-import dotenv from 'dotenv';
-// import fs from 'fs';
-import { CLI } from 'graphql-zeus/lib/CLI/CLIClass';
-import { databaseFile, databaseSeed, graphqlDir, graphqlFile } from './graftable-config-server';
-import { exportSchema } from './graftable-export-schema';
 import path from 'path';
-
+import dotenv from 'dotenv';
 const envPath = path.resolve(__dirname, '../../../.env');
 const envPathLocal = path.resolve(__dirname, '../../../.env.local');
 console.log(envPath);
+console.log(envPathLocal);
 dotenv.config({ path: envPath });
-// dotenv.config({ path: path.resolve(__dirname, '../../../.env.local') });
+dotenv.config({ path: envPathLocal });
+
+import { spawn } from 'child_process';
+import { CLI } from 'graphql-zeus/lib/CLI/CLIClass';
+import { databaseFile, databaseSeed, graphqlDir, graphqlFile } from './graftable-config-server';
+import { exportSchema } from './graftable-export-schema';
 
 const commands = {
   destroy: async () => {
