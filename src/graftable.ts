@@ -6,10 +6,12 @@ import { CLI } from 'graphql-zeus/lib/CLI/CLIClass';
 import { databaseFile, databaseSeed, graphqlDir, graphqlFile } from './graftable-config-server';
 import { exportSchema } from './graftable-export-schema';
 import path from 'path';
-console.log({ path: path.resolve(__dirname, '../../../.env') });
-console.log({ path: path.resolve(__dirname, '../../../.env.local') });
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-dotenv.config({ path: path.resolve(__dirname, '../../../.env.local') });
+
+const envPath = path.resolve(__dirname, '../../../.env');
+const envPathLocal = path.resolve(__dirname, '../../../.env.local');
+console.log(envPath);
+dotenv.config({ path: envPath });
+// dotenv.config({ path: path.resolve(__dirname, '../../../.env.local') });
 
 const commands = {
   destroy: async () => {
