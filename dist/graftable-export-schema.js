@@ -62,12 +62,12 @@ async function exportSchema(schemaOrPromise, options = { exportGqlSchemaPath: gr
     if (graphqlPath) {
         const graphqlSchema = graphql_1.printSchema(schema) +
             `
-  """WORKAROUND Zeus problem by appending schema entry points for [query, mutation, supscriptions]. """
-  schema {
-  query: Query,
-  mutation: Mutation
-  }
-  `;
+"""WORKAROUND Zeus problem by appending schema entry points for [query, mutation, supscriptions]. """
+schema {
+query: Query,
+mutation: Mutation
+}
+`;
         await writeFileIfDiffers(graphqlPath, graphqlSchema);
         console.log(`Done: wrote GraphQL schema to file \`graphqlPath\``);
     }
