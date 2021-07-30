@@ -48,7 +48,7 @@ const commands = {
     },
     graphql: graftable_export_schema_1.exportSchema,
     seed: async () => {
-        return (await Promise.resolve().then(() => __importStar(require(graftable_config_server_1.databaseSeed))))();
+        return (await Promise.resolve().then(() => __importStar(require(`./${graftable_config_server_1.databaseSeed}/index`))))();
     },
     typescript: async () => {
         return await CLIClass_1.CLI.execute({ _: [`./${graftable_config_server_1.graphqlDir}/`, `./${graftable_config_server_1.graphqlFile}`], typescript: true, $0: '' });

@@ -26,7 +26,7 @@ const commands = {
   },
   graphql: exportSchema,
   seed: async () => {
-    return (await import(databaseSeed))();
+    return (await import(`./${databaseSeed}/index`))();
   },
   typescript: async () => {
     return await CLI.execute({ _: [`./${graphqlDir}/`, `./${graphqlFile}`], typescript: true, $0: '' });
