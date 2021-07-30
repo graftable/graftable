@@ -60,6 +60,6 @@ mutation: Mutation
 }
 `;
     await writeFileIfDiffers(graphqlPath, graphqlSchema);
-    console.log(`Done: wrote GraphQL schema to file \`graphqlPath\``);
+    console.log(`Done: wrote GraphQL schema to file \`${graphqlPath}\``);
   }
 }
