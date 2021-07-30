@@ -64,8 +64,8 @@ async function exportSchema(schemaOrPromise, options = { exportGqlSchemaPath: gr
             `
 """WORKAROUND Zeus problem by appending schema entry points for [query, mutation, supscriptions]. """
 schema {
-query: Query,
-mutation: Mutation
+  query: Query,
+  mutation: Mutation
 }
 `;
         await writeFileIfDiffers(graphqlPath, graphqlSchema);
