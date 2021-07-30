@@ -20,6 +20,7 @@ const DEFAULT_DATABASE_URL = 'postgres://localhost/graphql';
 const {
   [GRAFTABLE_PREFIX + 'DATABASE_SCHEMA']: databaseSchema = DEFAULT_DATABASE_SCHEMA,
   [GRAFTABLE_PREFIX + 'DATABASE_FILE']: databaseFile = 'data/schema.sql',
+  [GRAFTABLE_PREFIX + 'DATABASE_SEED']: databaseSeed = 'data/seed',
   [GRAFTABLE_PREFIX + 'DATABASE_URL']: databaseUrl = DEFAULT_DATABASE_URL,
   [GRAFTABLE_PREFIX + 'GRAPHQL_DIR']: graphqlDir = 'graphql',
   [GRAFTABLE_PREFIX + 'GRAPHQL_FILE']: graphqlFile = `${graphqlDir}/schema.graphql`,
@@ -96,6 +97,7 @@ export {
   DEFAULT_DATABASE_URL,
   databaseSchema,
   databaseFile,
+  databaseSeed,
   databaseUrl,
   defaultPlugins,
   graphqlFile,

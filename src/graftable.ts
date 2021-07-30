@@ -1,7 +1,7 @@
 #! /usr/bin/env node
-import { spawn, spawnSync } from 'child_process';
+import { spawn } from 'child_process';
 import { CommandCompleteMessage } from 'pg-protocol/dist/messages';
-import { databaseUrl, databaseFile } from './graftable-config-server';
+import { databaseSeed, databaseFile } from './graftable-config-server';
 import { exportSchema } from './graftable-export-schema';
 
 const commands = {
@@ -19,11 +19,7 @@ const commands = {
   },
   graphql: exportSchema,
   seed: async () => {
-    const seed = `echo seed`;
-    await spawn(seed, [], {
-      shell: true,
-      stdio: 'inherit'
-    });
+    return (await import(databaseSeed))();
   },
   typescript: async () => {
     const typescript = `echo typescript`;
@@ -57,6 +53,8 @@ if (hasErrors) {
 
 // (async () => await commands.destroy())();
 (async () => await commands.graphql(undefined, {}))();
+(async () => await commands.seed())();
+
 
 // // (async () =>
 //   args.reduce(async (p, a) => {
