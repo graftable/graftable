@@ -48,22 +48,15 @@ if (hasErrors) {
   process.exit(1);
 }
 
-// (async () => await commands.destroy())();
-// (async () => await commands.graphql(undefined, {}))();
-(async () => await commands.typescript())();
-
-// // (async () =>
-//   args.reduce(async (p, a) => {
-//     const command = commands[a as Command];
-//     if (await p) {
-//       return p;
-//     }
-//     try {
-//       await command();
-//       console.log(`Done: running \`graftable ${a}\` command.`);
-//       return p;
-//     } catch (e) {
-//       console.log(`Error: running \`graftable ${a}\` command.`);
-//       throw e;
-//     }
-//   }, Promise.resolve(false)))();
+(async () => {
+  for await (const a of args) {
+    const command = commands[a as Command];
+    try {
+      await command();
+      console.log(`Done: running \`graftable ${a}\` command.`);
+    } catch (e) {
+      console.log(`Error: running \`graftable ${a}\` command.`);
+      throw e;
+    }
+  }
+})();

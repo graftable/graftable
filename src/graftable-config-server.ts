@@ -15,7 +15,7 @@ const isDev = NODE_ENV === 'development';
 
 const { GRAFTABLE_PREFIX = '' } = process.env;
 const DEFAULT_DATABASE_SCHEMA = 'public';
-const DEFAULT_DATABASE_URL = 'postgres://localhost/graphql';
+const DEFAULT_DATABASE_URL = 'postgres://localhost/graphql_dev';
 
 const {
   [GRAFTABLE_PREFIX + 'DATABASE_SCHEMA']: databaseSchema = DEFAULT_DATABASE_SCHEMA,
