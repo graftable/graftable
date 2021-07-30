@@ -29,7 +29,7 @@ const commands = {
     return (await import(databaseSeed))();
   },
   typescript: async () => {
-    return await CLI.execute({ _: [graphqlDir, `${graphqlFile}/`], typescript: true, $0: '' });
+    return await CLI.execute({ _: [graphqlDir, `./${graphqlFile}/`], typescript: true, $0: '' });
   }
 };
 
