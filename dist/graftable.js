@@ -25,14 +25,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
 const dotenv_1 = __importDefault(require("dotenv"));
-const fs_1 = __importDefault(require("fs"));
 const CLIClass_1 = require("graphql-zeus/lib/CLI/CLIClass");
 const graftable_config_server_1 = require("./graftable-config-server");
 const graftable_export_schema_1 = require("./graftable-export-schema");
-const ENV_LOCAL = '.env.local';
-const hasEnvLocal = fs_1.default.existsSync(ENV_LOCAL);
-const dotEnvConfig = hasEnvLocal ? { path: ENV_LOCAL } : undefined;
-dotenv_1.default.config(dotEnvConfig);
+// const ENV_LOCAL = '.env.local';
+// const hasEnvLocal = fs.existsSync(ENV_LOCAL);
+// const dotEnvConfig = hasEnvLocal ? { path: ENV_LOCAL } : undefined;
+dotenv_1.default.config();
 const commands = {
     destroy: async () => {
         const psql = `psql postgres < ${graftable_config_server_1.databaseFile}`;
