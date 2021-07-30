@@ -8,7 +8,9 @@ import { exportSchema } from './graftable-export-schema';
 import path from 'path';
 
 // const path = require('path')
-dotenv.config({ path: path.resolve(__dirname, '../.env') })
+// dotenv.config({ path:  })
+
+console.log(path.resolve(__dirname, '../.env'));
 
 // const ENV_LOCAL = '.env.local';
 // const hasEnvLocal = fs.existsSync(ENV_LOCAL);
