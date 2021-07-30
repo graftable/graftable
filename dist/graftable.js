@@ -30,6 +30,8 @@ const CLIClass_1 = require("graphql-zeus/lib/CLI/CLIClass");
 const graftable_config_server_1 = require("./graftable-config-server");
 const graftable_export_schema_1 = require("./graftable-export-schema");
 const path_1 = __importDefault(require("path"));
+console.log({ path: path_1.default.resolve(__dirname, '../../../.env') });
+console.log({ path: path_1.default.resolve(__dirname, '../../../.env.local') });
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../../../.env') });
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../../../.env.local') });
 const commands = {
