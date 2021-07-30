@@ -31,7 +31,7 @@ const graftable_export_schema_1 = require("./graftable-export-schema");
 const path_1 = __importDefault(require("path"));
 // const path = require('path')
 // dotenv.config({ path:  })
-console.log(path_1.default.resolve(__dirname, '../.env'));
+console.log(path_1.default.resolve(__dirname, '../../../.env'));
 // const ENV_LOCAL = '.env.local';
 // const hasEnvLocal = fs.existsSync(ENV_LOCAL);
 // const dotEnvConfig = hasEnvLocal ? { path: ENV_LOCAL } : undefined;
