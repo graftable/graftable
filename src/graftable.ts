@@ -26,10 +26,10 @@ const commands = {
   },
   graphql: exportSchema,
   seed: async () => {
-    return (await import(`~/${databaseSeed}/index`))();
+    return (await import(`~/${databaseSeed}`))();
   },
   typescript: async () => {
-    return await CLI.execute({ _: [`./${graphqlDir}/`, `./${graphqlFile}`], typescript: true, $0: '' });
+    return await CLI.execute({ _: [`./${graphqlFile}`, `./${graphqlDir}/`], typescript: true, $0: '' });
   }
 };
 
