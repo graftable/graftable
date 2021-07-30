@@ -21,6 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
+const CLIClass_1 = require("graphql-zeus/lib/CLI/CLIClass");
 const graftable_config_server_1 = require("./graftable-config-server");
 const graftable_export_schema_1 = require("./graftable-export-schema");
 const commands = {
@@ -41,11 +42,7 @@ const commands = {
         return (await Promise.resolve().then(() => __importStar(require(graftable_config_server_1.databaseSeed))))();
     },
     typescript: async () => {
-        const typescript = `echo typescript`;
-        await child_process_1.spawn(typescript, [], {
-            shell: true,
-            stdio: 'inherit'
-        });
+        return await CLIClass_1.CLI.execute({ _: [graftable_config_server_1.graphqlDir, `${graftable_config_server_1.graphqlFile}/`], typescript: true, $0: '' });
     }
 };
 const commandKeys = Object.keys(commands);
@@ -61,8 +58,8 @@ if (hasErrors) {
     process.exit(1);
 }
 // (async () => await commands.destroy())();
-(async () => await commands.graphql(undefined, {}))();
-(async () => await commands.seed())();
+// (async () => await commands.graphql(undefined, {}))();
+(async () => await commands.typescript())();
 // // (async () =>
 //   args.reduce(async (p, a) => {
 //     const command = commands[a as Command];

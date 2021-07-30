@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 import { spawn } from 'child_process';
-import { CommandCompleteMessage } from 'pg-protocol/dist/messages';
-import { databaseSeed, databaseFile } from './graftable-config-server';
+import { CLI } from 'graphql-zeus/lib/CLI/CLIClass';
+import { databaseFile, databaseSeed, graphqlDir, graphqlFile } from './graftable-config-server';
 import { exportSchema } from './graftable-export-schema';
 
 const commands = {
@@ -22,17 +22,14 @@ const commands = {
     return (await import(databaseSeed))();
   },
   typescript: async () => {
-    const typescript = `echo typescript`;
-    await spawn(typescript, [], {
-      shell: true,
-      stdio: 'inherit'
-    });
+    return await CLI.execute({ _: [graphqlDir, `${graphqlFile}/`], typescript: true, $0: '' });
   }
 };
 
 // TODO TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' npx ts-node --transpile-only -r dotenv/config node_modules/graftable/dist/graftable-export-schema.js dotenv_config_path=.env.local
 // TODO "seed": "npx ts-node --transpile-only -r dotenv/config data/seed/index.ts dotenv_config_path=.env.local",
 // TODO "graphql:zeus": "npx zeus graphql/schema.graphql ./graphql --typescript",
+
 type Command = keyof typeof commands;
 
 const commandKeys = Object.keys(commands);
@@ -52,9 +49,8 @@ if (hasErrors) {
 }
 
 // (async () => await commands.destroy())();
-(async () => await commands.graphql(undefined, {}))();
-(async () => await commands.seed())();
-
+// (async () => await commands.graphql(undefined, {}))();
+(async () => await commands.typescript())();
 
 // // (async () =>
 //   args.reduce(async (p, a) => {

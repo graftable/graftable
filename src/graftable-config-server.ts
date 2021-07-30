@@ -100,6 +100,7 @@ export {
   databaseSeed,
   databaseUrl,
   defaultPlugins,
+  graphqlDir,
   graphqlFile,
   jwtDataName,
   jwtAlgorithm,

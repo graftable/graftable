@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postgraphileOptions = exports.otpWindow = exports.optStep = exports.otpSetupWindow = exports.jwtSignatureName = exports.jwtMaxAge = exports.jwtAlgorithm = exports.jwtDataName = exports.graphqlFile = exports.defaultPlugins = exports.databaseUrl = exports.databaseSeed = exports.databaseFile = exports.databaseSchema = exports.DEFAULT_DATABASE_URL = exports.DEFAULT_DATABASE_SCHEMA = exports.GRAFTABLE_PREFIX = void 0;
+exports.postgraphileOptions = exports.otpWindow = exports.optStep = exports.otpSetupWindow = exports.jwtSignatureName = exports.jwtMaxAge = exports.jwtAlgorithm = exports.jwtDataName = exports.graphqlFile = exports.graphqlDir = exports.defaultPlugins = exports.databaseUrl = exports.databaseSeed = exports.databaseFile = exports.databaseSchema = exports.DEFAULT_DATABASE_URL = exports.DEFAULT_DATABASE_SCHEMA = exports.GRAFTABLE_PREFIX = void 0;
 const pg_order_by_related_1 = __importDefault(require("@graphile-contrib/pg-order-by-related"));
 const pg_simplify_inflector_1 = __importDefault(require("@graphile-contrib/pg-simplify-inflector"));
 // import { GraphqlAccessPlugin } from './graftable-access-plugin.ts.example';
@@ -26,6 +26,7 @@ exports.databaseSchema = databaseSchema;
 exports.databaseFile = databaseFile;
 exports.databaseSeed = databaseSeed;
 exports.databaseUrl = databaseUrl;
+exports.graphqlDir = graphqlDir;
 exports.graphqlFile = graphqlFile;
 exports.jwtDataName = jwtDataName;
 exports.jwtSignatureName = jwtSignatureName;
