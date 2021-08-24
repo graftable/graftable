@@ -1,2 +1,6 @@
 # Graftable
-> GraphQL via PostGraphile with integrated authentication and framework for customized queries and mutations
+
+UNLICENSED
+
+Please ask for permission to use Graftable.
+
