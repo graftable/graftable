@@ -37,7 +37,6 @@
     "postgraphile-plugin-connection-filter": "^2.2.1",
     "postgraphile-plugin-nested-mutations": "^1.1.0",
     "postgraphile-upsert-plugin": "^1.0.5",
-    "tslib": "^2.3.1",
     "wavy": "^1.0.4"
   },
   "devDependencies": {
